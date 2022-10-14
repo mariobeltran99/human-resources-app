@@ -4,5 +4,38 @@
 		"language": "Languages",
 		"english": "English",
 		"spanish": "Spanish"
+	},
+	"sidenav": {
+		"menuRegister": "Register Person",
+		"menuView": "View People"
+	},
+	"titleMenu": "Menu",
+	"footer": "© Human Resources {{ currentYear }}. All rights reserved.",
+	"notFound": {
+		"title": "Page not found!!!",
+		"button": "Go to Home"
+	},
+	"personForm": {
+		"titleCreate": "Register Personal Information",
+		"titleEdit": "Update Personal Information",
+		"subtitle": "Form",
+		"label1": "DUI",
+		"label2": "Name",
+		"label3": "Surname",
+		"label4": "Email",
+		"label5": "Phone number",
+		"label6": "Birthday date",
+		"label7": "Marital status",
+		"label8": "Genre:",
+		"label9": "Address",
+		"optionStatus1": "Single",
+		"optionStatus2": "Married",
+		"optionStatus3": "Divorced",
+		"optionStatus4": "Widowed",
+		"optionStatus5": "Free Union",
+		"male": "Male",
+		"female": "Female",
+		"buttonCreate":"Register",
+		"buttonEdit": "Update"
 	}
 }

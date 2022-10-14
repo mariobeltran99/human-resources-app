@@ -1,0 +1,86 @@
+.container-page {
+	width: 100%;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+::ng-deep mat-card-content {
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.screen-large {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr;
+	gap: 0px 10px;
+}
+
+.width-control {
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.control-flex {
+	display: block;
+	margin: 10px auto;
+}
+
+.label-radiobutton {
+	margin-right: 15px;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+	margin-left: 16px;
+}
+
+textarea {
+	resize: none !important;
+}
+
+.button-submit {
+	width: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 800px) {
+	.control-group-1,
+	.control-group-2 {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: 1fr;
+		gap: 0px 10px;
+	}
+}
+
+@media (min-width: 801px) and (max-width: 1024px) {
+	.control-group-1 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr 1fr 1fr;
+		gap: 0px 10px;
+	}
+
+	.control-group-2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		gap: 0px 10px;
+	}
+}
+
+@media (min-width: 1025px) and (max-width: 2560px) {
+	.control-group-1 {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		grid-template-rows: 1fr 1fr;
+		gap: 0px 10px;
+	}
+
+	.control-group-2 {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: 1fr;
+		gap: 0px 10px;
+	}
+}

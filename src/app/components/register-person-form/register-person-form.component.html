@@ -1,0 +1,155 @@
+<div class="container-page">
+	<mat-card *transloco="let t; read: 'personForm'">
+		<mat-card-subtitle>{{ t('subtitle') }}</mat-card-subtitle>
+		<mat-card-title>
+			{{ editMode ? t('titleEdit') : t('titleCreate') }}
+		</mat-card-title>
+		<form [formGroup]="personForm" (ngSubmit)="save()">
+			<mat-card-content>
+				<div class="control-group-1">
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label1') }}</mat-label>
+						<input
+							type="text"
+							matInput
+							formControlName="dui"
+							maxlength="9"
+							placeholder="Placeholder" />
+						<mat-icon matSuffix>badge</mat-icon>
+					</mat-form-field>
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label2') }}</mat-label>
+						<input
+							type="text"
+							matInput
+							formControlName="name"
+							maxlength="50"
+							placeholder="Placeholder" />
+					</mat-form-field>
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label3') }}</mat-label>
+						<input
+							type="text"
+							matInput
+							formControlName="surname"
+							maxlength="50"
+							placeholder="Placeholder" />
+					</mat-form-field>
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label4') }}</mat-label>
+						<input
+							type="text"
+							matInput
+							formControlName="email"
+							maxlength="100"
+							placeholder="Placeholder" />
+						<mat-icon matSuffix>email</mat-icon>
+					</mat-form-field>
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label5') }}</mat-label>
+						<input
+							type="text"
+							matInput
+							formControlName="phone"
+							maxlength="8"
+							placeholder="Placeholder" />
+						<mat-icon matSuffix>call</mat-icon>
+					</mat-form-field>
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label6') }}</mat-label>
+						<input
+							matInput
+							[matDatepicker]="picker"
+							formControlName="birthday"
+							[max]="maxDate"
+							[min]="minDate"
+							readonly />
+						<mat-hint>DD/MM/YYYY</mat-hint>
+						<mat-datepicker-toggle
+							matSuffix
+							[for]="picker"></mat-datepicker-toggle>
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+				</div>
+				<div class="control-group-2">
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label7') }}</mat-label>
+						<mat-select formControlName="maritalStatus">
+							<mat-option
+								*ngFor="let option of maritalStatusData"
+								[value]="option.value">
+								{{ t(option.viewStatus) }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<div class="control-flex">
+						<div class="label-radiobutton">{{ t('label8') }}</div>
+						<div>
+							<mat-radio-group
+								aria-label="Select an option"
+								formControlName="genre">
+								<mat-radio-button value="M">{{
+									t('male')
+								}}</mat-radio-button>
+								<mat-radio-button value="F">{{
+									t('female')
+								}}</mat-radio-button>
+							</mat-radio-group>
+						</div>
+					</div>
+				</div>
+				<div class="control-group-3">
+					<mat-form-field
+						class="width-control"
+						appearance="outline"
+						floatLabel="always">
+						<mat-label>{{ t('label9') }}</mat-label>
+						<textarea
+							matInput
+							#inputAddress
+							placeholder="Ex. It makes me feel..."
+							rows="4"
+							maxlength="300"
+							formControlName="address"></textarea>
+						<mat-hint>{{ inputAddress.value.length }}/300</mat-hint>
+					</mat-form-field>
+				</div>
+				<mat-divider></mat-divider>
+			</mat-card-content>
+			<mat-card-actions>
+				<button
+					class="button-submit"
+					type="submit"
+					mat-flat-button
+					color="primary"
+					[disabled]="!personForm.valid">
+					{{ editMode ? t('buttonEdit') : t('buttonCreate') }}
+				</button>
+			</mat-card-actions>
+		</form>
+		<mat-card-footer>
+			<mat-progress-bar mode="query"></mat-progress-bar>
+		</mat-card-footer>
+	</mat-card>
+</div>

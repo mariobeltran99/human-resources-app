@@ -6,15 +6,15 @@
 		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
 		[mode]="(isHandset$ | async) ? 'over' : 'side'"
 		[opened]="(isHandset$ | async) === false">
-		<mat-toolbar>Menu</mat-toolbar>
-		<mat-nav-list>
-			<a mat-list-item href="#">
-				<mat-icon class="icon-menu">person_add_alt</mat-icon> Register
-				Person
+		<mat-toolbar>{{ 'titleMenu' | transloco }}</mat-toolbar>
+		<mat-nav-list *transloco="let ts; read: 'sidenav'">
+			<a mat-list-item routerLink="register-person">
+				<mat-icon class="icon-menu">person_add_alt</mat-icon>
+				{{ ts('menuRegister') }}
 			</a>
-			<a mat-list-item href="#">
-				<mat-icon class="icon-menu">format_list_bulleted</mat-icon> View
-				People
+			<a mat-list-item routerLink="view-people">
+				<mat-icon class="icon-menu">format_list_bulleted</mat-icon>
+				{{ ts('menuView') }}
 			</a>
 		</mat-nav-list>
 	</mat-sidenav>
@@ -32,6 +32,8 @@
 			<span class="example-spacer"></span>
 			<button
 				mat-icon-button
+				[matTooltip]="tb('language')"
+				matTooltipPosition="left"
 				class="example-icon favorite-icon"
 				[matMenuTriggerFor]="menu"
 				aria-label="Example icon-button with heart icon">
@@ -50,6 +52,15 @@
 			<span class="language">{{ language }}</span>
 		</mat-toolbar>
 		<!-- Add Content Here -->
-		<router-outlet></router-outlet>
+		<div class="container-main">
+			<div class="container-app">
+				<router-outlet></router-outlet>
+			</div>
+			<!--div class="footer">
+				<p class="footer__text">
+					{{ 'footer' | transloco: { currentYear } }}
+				</p>
+			</div-->
+		</div>
 	</mat-sidenav-content>
 </mat-sidenav-container>

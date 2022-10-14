@@ -1,3 +1,5 @@
+@use 'colors' as *;
+
 .sidenav-container {
 	height: 100%;
 }
@@ -25,5 +27,33 @@
 }
 
 .icon-menu {
-  margin-right: 10px;
+	margin-right: 10px;
+}
+
+.container-main {
+	margin: 0;
+	padding: 0;
+}
+
+.container-app {
+	margin: 0 auto;
+	max-width: 1136px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	margin: 0;
+	width: 100%;
+	background-color: $background-footer;
+	height: 50px;
+	
+
+	&__text{
+		text-align: center;
+		color: black;
+		font-size: 14px;
+		line-height: 16px;
+		padding-top: 15px;
+	}
 }

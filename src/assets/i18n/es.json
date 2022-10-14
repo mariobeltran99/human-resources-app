@@ -1,8 +1,18 @@
 {
-    "toolbar":{
-        "title": "Recursos Humanos",
-        "language": "Idiomas",
+	"toolbar": {
+		"title": "Recursos Humanos",
+		"language": "Idiomas",
 		"english": "Inglés",
 		"spanish": "Español"
-    }
+	},
+	"sidenav": {
+		"menuRegister": "Registrar Persona",
+		"menuView": "Mostrar Personas"
+	},
+	"titleMenu": "Menú",
+    "footer": "© Recursos Humanos {{ currentYear }}. Todos los derechos reservados.",
+    "notFound": {
+		"title": "¡¡¡Página no encontrada!!!",
+		"button": "Ir al inicio"
+	}
 }

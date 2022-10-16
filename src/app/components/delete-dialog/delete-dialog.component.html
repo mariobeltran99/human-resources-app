@@ -1,0 +1,24 @@
+<ng-container *transloco="let t; read: 'deleteDialog'">
+	<h2 mat-dialog-title>{{ t('title') }}</h2>
+	<mat-dialog-content class="mat-typography">
+		<p>{{ t('description') }}</p>
+	</mat-dialog-content>
+	<mat-dialog-actions align="end">
+		<button
+			type="button"
+			mat-button
+			color="primary"
+			[mat-dialog-close]="false"
+			mat-dialog-close>
+			{{ t('cancel') }}
+		</button>
+		<button
+			type="button"
+			mat-flat-button
+			color="warn"
+			[mat-dialog-close]="true"
+			cdkFocusInitial>
+			{{ t('accept') }}
+		</button>
+	</mat-dialog-actions>
+</ng-container>

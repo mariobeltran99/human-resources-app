@@ -10,10 +10,14 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslocoService } from '@ngneat/transloco';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-	constructor(private snackBar: MatSnackBar) {}
+	constructor(
+		private snackBar: MatSnackBar,
+		private serviceTransloco: TranslocoService
+	) {}
 
 	intercept(
 		req: HttpRequest<any>,
@@ -33,16 +37,13 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 			} else {
 				switch (error.status) {
 					case 400:
-						errorMessageToast =
-							'Bad Request: The server could not interpret the request given invalid syntax';
+						errorMessageToast = 'error400';
 						break;
 					case 403:
-						errorMessageToast =
-							'The client does not have the necessary permissions for certain content';
+						errorMessageToast = 'error403';
 						break;
 					case 404:
-						errorMessageToast =
-							'The server could not find the requested content';
+						errorMessageToast = 'error404';
 						break;
 				}
 			}
@@ -51,13 +52,17 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 			errorMessageConsole = `Server Error ${
 				(error as HttpErrorResponse).status
 			}`;
-			errorMessageToast = 'Server Error';
+			errorMessageToast = 'errorServer';
 		}
-		this.snackBar.open(errorMessageToast, `Error ${error.status}`, {
-			verticalPosition: 'top',
-			horizontalPosition: 'center',
-			duration: 5000,
-		});
+		this.snackBar.open(
+			this.serviceTransloco.translate<string>(errorMessageToast),
+			`Error ${error.status}`,
+			{
+				verticalPosition: 'top',
+				horizontalPosition: 'center',
+				duration: 5000,
+			}
+		);
 		return throwError(() => errorMessageConsole);
 	}
 }

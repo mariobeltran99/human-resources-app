@@ -1,9 +1,11 @@
-import { AfterViewInit, Component, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { TranslocoService } from '@ngneat/transloco';
 import { Person } from 'src/app/interfaces/personal-information.interface';
+import { ApiHumanResourcesService } from 'src/app/services/api-human-resources.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
@@ -11,8 +13,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 	templateUrl: './view-people.component.html',
 	styleUrls: ['./view-people.component.scss'],
 })
-export class ViewPeopleComponent implements AfterViewInit {
-	@ViewChild(MatPaginator) paginator!: MatPaginator;
+export class ViewPeopleComponent implements OnInit {
 	displayedColumns: string[] = [
 		'dui',
 		'name',
@@ -38,37 +39,28 @@ export class ViewPeopleComponent implements AfterViewInit {
 			genre: 'M',
 			address: 'Soya',
 		},
-		{
-			id: 2,
-			dui: 841655227,
-			name: 'Mario',
-			surname: 'Beltran',
-			email: 'carl@gmail.com',
-			phone: 67465457,
-			birthday: new Date(1999, 6, 6),
-			maritalStatus: 'D',
-			genre: 'M',
-			address: 'Soya',
-		},
-		{
-			id: 3,
-			dui: 841655227,
-			name: 'Mario',
-			surname: 'Beltran',
-			email: 'carl@gmail.com',
-			phone: 67465457,
-			birthday: new Date(1999, 6, 6),
-			maritalStatus: 'D',
-			genre: 'M',
-			address: 'Soya',
-		},
 	];
-	dataSource = new MatTableDataSource<Person>(this.dataPeople);
+	dataSource!: MatTableDataSource<Person>;
 
-	constructor(private router: Router, private dialog: MatDialog) {}
+	constructor(
+		private router: Router,
+		private dialog: MatDialog,
+		private apiService: ApiHumanResourcesService,
+		private snackBar: MatSnackBar,
+		private serviceTransloco: TranslocoService
+	) {}
 
-	ngAfterViewInit(): void {
-		this.dataSource.paginator = this.paginator;
+	ngOnInit(): void {
+		this.apiService.getPeople().subscribe({
+			next: response => {
+				this.dataPeople = response;
+				this.dataSource = new MatTableDataSource<Person>(response);
+			},
+			error: () => {
+				this.dataPeople = [];
+				this.dataSource = new MatTableDataSource<Person>([]);
+			},
+		});
 	}
 
 	editPerson(id: number) {
@@ -77,13 +69,22 @@ export class ViewPeopleComponent implements AfterViewInit {
 
 	deletePerson(id: number) {
 		const dialogRef = this.dialog.open(DeleteDialogComponent);
-
 		dialogRef.afterClosed().subscribe((result: boolean | undefined) => {
 			if (result) {
-				this.dataSource.data = this.dataSource.data.filter(
-					(item: Person) => item.id !== id
+				this.apiService.deletePerson(id).subscribe(() => {
+					this.dataSource.data = this.dataSource.data.filter(
+						(item: Person) => item.id !== id
+					);
+				});
+				this.snackBar.open(
+					this.serviceTransloco.translate<string>('successDelete'),
+					undefined,
+					{
+						verticalPosition: 'top',
+						horizontalPosition: 'center',
+						duration: 5000,
+					}
 				);
-				console.log(this.dataPeople, this.dataSource);
 			}
 		});
 	}

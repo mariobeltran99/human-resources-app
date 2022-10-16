@@ -63,13 +63,11 @@
 		"cancel": "Cancelar",
 		"accept": "Aceptar"
 	},
-	"paginator": {
-		"firstPageLabel": "Primera página",
-		"itemsPerPageLabel": "Elementos por página:",
-		"lastPageLabel": "Última página",
-		"nextPageLabel": "Siguiente página",
-		"previousPageLabel": "Página anterior",
-		"range": "Página {{page}} de {{amountPages}}",
-		"noRange": "Página 1 de 1"
-	}
+	"successRegister":"Persona registrada exitosamente",
+	"successUpdate":"Registro actualizado exitosamente",
+	"successDelete":"Registro eliminado exitosamente",
+	"error400":"Solicitud incorrecta: el servidor no pudo interpretar la solicitud debido a una sintaxis no válida",
+	"error403":"El cliente no tiene los permisos necesarios para ciertos contenidos",
+	"error404":"El servidor no pudo encontrar el contenido solicitado",
+	"errorServer": "Error del Servidor"
 }

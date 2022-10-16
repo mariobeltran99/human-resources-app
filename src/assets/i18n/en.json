@@ -63,13 +63,11 @@
 		"cancel": "Cancel",
 		"accept": "Ok"
 	},
-	"paginator": {
-		"firstPageLabel": "First page",
-		"itemsPerPageLabel": "Items per page:",
-		"lastPageLabel": "Last page",
-		"nextPageLabel": "Next page",
-		"previousPageLabel": "Previous page",
-		"range": "Page {{page}} of {{amountPages}}",
-		"noRange": "Page 1 of 1"
-	}
+	"successRegister":"Person registered successfully",
+	"successUpdate":"Registry updated successfully",
+	"successDelete":"Registry deleted successfully",
+	"error400":"Bad Request: The server could not interpret the request given invalid syntax",
+	"error403":"The client does not have the necessary permissions for certain content",
+	"error404":"The server could not find the requested content",
+	"errorServer": "Server Error"
 }

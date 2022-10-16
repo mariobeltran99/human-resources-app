@@ -1,11 +1,18 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+	AbstractControl,
+	FormControl,
+	FormGroup,
+	Validators,
+} from '@angular/forms';
+import * as moment from 'moment';
 import {
 	DATA_MARITAL_STATUS,
 	MaritalStatus,
 	PersonForm,
 	SelectionMaritalStatus,
 } from 'src/app/interfaces/person-form.interface';
+import { PersonalInformation } from 'src/app/interfaces/personal-information.interface';
 import {
 	PATTERN_DUI,
 	PATTERN_NAME,
@@ -24,6 +31,7 @@ export class RegisterPersonFormComponent {
 	maxDate: Date = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
 	minDate: Date = new Date(1900, 1, 1);
 	editMode: boolean = false;
+	id: number = 0;
 	constructor() {
 		this.personForm = new FormGroup<PersonForm>({
 			dui: new FormControl(null, {
@@ -88,6 +96,17 @@ export class RegisterPersonFormComponent {
 	}
 
 	save(): void {
-		console.log(this.personForm.value);
+		if (this.personForm.valid) {
+			const personalInformation: PersonalInformation =
+				this.personForm.value;
+			if (this.editMode) {
+			} else {
+			}
+			console.log(personalInformation);
+		}
+	}
+
+	control(field: string): AbstractControl {
+		return this.personForm.controls[field];
 	}
 }

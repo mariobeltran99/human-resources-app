@@ -53,6 +53,10 @@
 		</mat-toolbar>
 		<!-- Add Content Here -->
 		<div class="container-main">
+			<mat-progress-bar
+				*ngIf="loader$ | async"
+				color="primary"
+				mode="query"></mat-progress-bar>
 			<div class="container-app">
 				<router-outlet></router-outlet>
 			</div>

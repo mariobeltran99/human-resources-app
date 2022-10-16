@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-export const PATTERN_DUI = /^\d{0,9}$/;
+export const PATTERN_DUI = /^[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]$/;
 
 export const PATTERN_NAME =
 	/^[A-Za-zÀ-ÖØ-öø-ÿ]+((\s)?((\'|\-|\.)?([A-Za-zÀ-ÖØ-öø-ÿ])+))*$/;

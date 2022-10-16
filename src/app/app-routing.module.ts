@@ -16,6 +16,10 @@ const routes: Routes = [
 		component: RegisterPersonFormComponent,
 	},
 	{
+		path: 'person/edit/:id',
+		component: RegisterPersonFormComponent,
+	},
+	{
 		path: 'view-people',
 		component: ViewPeopleComponent,
 	},

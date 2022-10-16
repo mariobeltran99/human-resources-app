@@ -17,8 +17,19 @@
 							matInput
 							formControlName="dui"
 							maxlength="9"
-							placeholder="Placeholder" />
+							[placeholder]="t('placeholder1')" />
 						<mat-icon matSuffix>badge</mat-icon>
+						<mat-error
+							*ngIf="control('dui').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('dui').errors?.['maxlength']"
+							>{{ t('common-error3', { count: 9 }) }}</mat-error
+						>
+						<mat-error *ngIf="control('dui').errors?.['pattern']">{{
+							t('custom-error1')
+						}}</mat-error>
 					</mat-form-field>
 					<mat-form-field
 						class="width-control"
@@ -30,7 +41,23 @@
 							matInput
 							formControlName="name"
 							maxlength="50"
-							placeholder="Placeholder" />
+							[placeholder]="t('placeholder2')" />
+						<mat-error
+							*ngIf="control('name').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('name').errors?.['minlength']"
+							>{{ t('common-error2', { count: 2 }) }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('name').errors?.['maxlength']"
+							>{{ t('common-error3', { count: 50 }) }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('name').errors?.['pattern']"
+							>{{ t('custom-error2') }}</mat-error
+						>
 					</mat-form-field>
 					<mat-form-field
 						class="width-control"
@@ -42,7 +69,23 @@
 							matInput
 							formControlName="surname"
 							maxlength="50"
-							placeholder="Placeholder" />
+							[placeholder]="t('placeholder3')" />
+						<mat-error
+							*ngIf="control('surname').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('surname').errors?.['minlength']"
+							>{{ t('common-error2', { count: 2 }) }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('surname').errors?.['maxlength']"
+							>{{ t('common-error3', { count: 50 }) }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('surname').errors?.['pattern']"
+							>{{ t('custom-error2') }}</mat-error
+						>
 					</mat-form-field>
 					<mat-form-field
 						class="width-control"
@@ -54,8 +97,19 @@
 							matInput
 							formControlName="email"
 							maxlength="100"
-							placeholder="Placeholder" />
+							[placeholder]="t('placeholder4')" />
 						<mat-icon matSuffix>email</mat-icon>
+						<mat-error
+							*ngIf="control('email').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('email').errors?.['maxlength']"
+							>{{ t('common-error3', { count: 100 }) }}</mat-error
+						>
+						<mat-error *ngIf="control('email').errors?.['email']">{{
+							t('custom-error3')
+						}}</mat-error>
 					</mat-form-field>
 					<mat-form-field
 						class="width-control"
@@ -67,8 +121,20 @@
 							matInput
 							formControlName="phone"
 							maxlength="8"
-							placeholder="Placeholder" />
+							[placeholder]="t('placeholder5')" />
 						<mat-icon matSuffix>call</mat-icon>
+						<mat-error
+							*ngIf="control('phone').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('phone').errors?.['maxlength']"
+							>{{ t('common-error3', { count: 8 }) }}</mat-error
+						>
+						<mat-error
+							*ngIf="control('phone').errors?.['pattern']"
+							>{{ t('custom-error4') }}</mat-error
+						>
 					</mat-form-field>
 					<mat-form-field
 						class="width-control"
@@ -83,6 +149,10 @@
 							[min]="minDate"
 							readonly />
 						<mat-hint>DD/MM/YYYY</mat-hint>
+						<mat-error
+							*ngIf="control('birthday').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
 						<mat-datepicker-toggle
 							matSuffix
 							[for]="picker"></mat-datepicker-toggle>
@@ -102,6 +172,10 @@
 								{{ t(option.viewStatus) }}
 							</mat-option>
 						</mat-select>
+						<mat-error
+							*ngIf="control('maritalStatus').errors?.['required']"
+							>{{ t('common-error1') }}</mat-error
+						>
 					</mat-form-field>
 					<div class="control-flex">
 						<div class="label-radiobutton">{{ t('label8') }}</div>
@@ -128,11 +202,15 @@
 						<textarea
 							matInput
 							#inputAddress
-							placeholder="Ex. It makes me feel..."
+							[placeholder]="t('placeholder6')"
 							rows="4"
 							maxlength="300"
 							formControlName="address"></textarea>
 						<mat-hint>{{ inputAddress.value.length }}/300</mat-hint>
+						<mat-error
+							*ngIf="control('address').errors?.['maxlength']"
+							>{{ t('common-error3', { count: 300 }) }}</mat-error
+						>
 					</mat-form-field>
 				</div>
 				<mat-divider></mat-divider>
@@ -148,8 +226,5 @@
 				</button>
 			</mat-card-actions>
 		</form>
-		<mat-card-footer>
-			<mat-progress-bar mode="query"></mat-progress-bar>
-		</mat-card-footer>
 	</mat-card>
 </div>

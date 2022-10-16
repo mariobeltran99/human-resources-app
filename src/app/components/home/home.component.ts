@@ -5,6 +5,7 @@ import { map, shareReplay } from 'rxjs/operators';
 import { TranslocoService } from '@ngneat/transloco';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
 	selector: 'app-home',
@@ -20,13 +21,15 @@ export class HomeComponent implements OnInit {
 			map(result => result.matches),
 			shareReplay()
 		);
-
+	loader$: Observable<boolean>;
 	constructor(
 		private iconRegistry: MatIconRegistry,
 		private sanitazer: DomSanitizer,
 		private breakpointObserver: BreakpointObserver,
-		private translocoService: TranslocoService
+		private translocoService: TranslocoService,
+		private loader: LoadingService
 	) {
+		this.loader$ = loader.loading$;
 		iconRegistry.addSvgIcon(
 			'spain-flag',
 			sanitazer.bypassSecurityTrustResourceUrl('./assets/icons/spain.svg')

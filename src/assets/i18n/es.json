@@ -55,7 +55,8 @@
 		"custom-error3": "El formato debe contener @domain.tld, dirección IP o dominio",
 		"custom-error4": "Debe comenzar con 2, 6 o 7 y contener 8 dígitos",
 		"edit":"Editar",
-		"delete":"Eliminar"
+		"delete":"Eliminar",
+		"notFoundData": "Lo sentimos, por el momento no hay datos"
 	},
 	"deleteDialog": {
 		"title": "Eliminar",

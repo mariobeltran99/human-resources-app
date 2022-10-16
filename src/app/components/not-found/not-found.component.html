@@ -1,0 +1,12 @@
+<div class="container-page" *transloco="let t; read: 'notFound'">
+	<img class="logo" src="assets/images/404-error.svg" />
+	<h1 class="title">{{ t('title') }}</h1>
+	<button
+		type="button"
+		class="button-go"
+		mat-flat-button
+		color="primary"
+		routerLink="/register-person">
+		{{ t('button') }}
+	</button>
+</div>

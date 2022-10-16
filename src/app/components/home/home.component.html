@@ -1,0 +1,65 @@
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav
+		#drawer
+		class="sidenav"
+		fixedInViewport
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="(isHandset$ | async) === false">
+		<mat-toolbar>{{ 'titleMenu' | transloco }}</mat-toolbar>
+		<mat-nav-list *transloco="let ts; read: 'sidenav'">
+			<a mat-list-item routerLink="register-person">
+				<mat-icon class="icon-menu">person_add_alt</mat-icon>
+				{{ ts('menuRegister') }}
+			</a>
+			<a mat-list-item routerLink="view-people">
+				<mat-icon class="icon-menu">format_list_bulleted</mat-icon>
+				{{ ts('menuView') }}
+			</a>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<mat-toolbar color="primary" *transloco="let tb; read: 'toolbar'">
+			<button
+				type="button"
+				aria-label="Toggle sidenav"
+				mat-icon-button
+				(click)="drawer.toggle()"
+				*ngIf="isHandset$ | async">
+				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+			</button>
+			<span>{{ tb('title') }}</span>
+			<span class="example-spacer"></span>
+			<button
+				mat-icon-button
+				[matTooltip]="tb('language')"
+				matTooltipPosition="left"
+				class="example-icon favorite-icon"
+				[matMenuTriggerFor]="menu"
+				aria-label="Example icon-button with heart icon">
+				<mat-icon>language</mat-icon>
+			</button>
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item (click)="setLanguage('en')">
+					<mat-icon svgIcon="united-kingdom-flag"></mat-icon>
+					<span>{{ tb('english') }}</span>
+				</button>
+				<button mat-menu-item (click)="setLanguage('es')">
+					<mat-icon svgIcon="spain-flag"></mat-icon>
+					<span>{{ tb('spanish') }}</span>
+				</button>
+			</mat-menu>
+			<span class="language">{{ language }}</span>
+		</mat-toolbar>
+		<!-- Add Content Here -->
+		<div class="container-main">
+			<mat-progress-bar
+				*ngIf="loader$ | async"
+				color="primary"
+				mode="query"></mat-progress-bar>
+			<div class="container-app">
+				<router-outlet></router-outlet>
+			</div>
+		</div>
+	</mat-sidenav-content>
+</mat-sidenav-container>

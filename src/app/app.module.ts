@@ -27,10 +27,6 @@ import {
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
-import {
-	MatPaginatorIntl,
-	MatPaginatorModule,
-} from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 //components
 import { HomeComponent } from './components/home/home.component';
@@ -40,7 +36,6 @@ import { ViewPeopleComponent } from './components/view-people/view-people.compon
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 //services
-import { CustomPaginatorIntlService } from './services/custom-paginator-intl.service';
 import { LoadingService } from './services/loading.service';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
 import { LoadInterceptor } from './interceptors/loading.interceptor';
@@ -66,7 +61,6 @@ const THEME = [
 	MatSelectModule,
 	MatTableModule,
 	MatDialogModule,
-	MatPaginatorModule,
 	MatSnackBarModule,
 ];
 
@@ -97,7 +91,6 @@ const THEME = [
 			multi: true,
 		},
 		{ provide: HTTP_INTERCEPTORS, useClass: LoadInterceptor, multi: true },
-		{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntlService },
 		{ provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: { color: 'primary' } },
 		{ provide: MAT_DATE_LOCALE, useValue: 'es-mx' },
 	],

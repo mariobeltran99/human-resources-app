@@ -30,6 +30,6 @@ export class ApiHumanResourcesService {
 	}
 
 	deletePerson(id: number): Observable<any> {
-		return this.http.get(`${environment.api}/person/${id}`);
+		return this.http.delete(`${environment.api}/person/${id}`);
 	}
 }

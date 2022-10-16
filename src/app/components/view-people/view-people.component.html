@@ -1,1 +1,147 @@
-<p>view-people works!</p>
+<div class="container-page">
+	<mat-card *transloco="let t; read: 'personForm'">
+		<mat-card-title>
+			{{ t('titleDetails') }}
+		</mat-card-title>
+		<mat-card-content>
+			<div class="table-container" *ngIf="dataPeople.length > 0">
+				<table mat-table [dataSource]="dataSource">
+					<ng-container matColumnDef="dui">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label1') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.dui }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="name">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label2') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.name }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="surname">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label3') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.surname }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="email">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label4') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.email }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="phone">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label5') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.phone }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="birthday">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label6') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.birthday | date: 'dd/MM/YYYY' }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="maritalStatus">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label7') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							<div [ngSwitch]="element.maritalStatus">
+								<ng-container *ngSwitchCase="'S'">
+									{{ t('optionStatus1') }}
+								</ng-container>
+								<ng-container *ngSwitchCase="'M'">
+									{{ t('optionStatus2') }}
+								</ng-container>
+								<ng-container *ngSwitchCase="'D'">
+									{{ t('optionStatus3') }}
+								</ng-container>
+								<ng-container *ngSwitchCase="'V'">
+									{{ t('optionStatus4') }}
+								</ng-container>
+								<ng-container *ngSwitchCase="'U'">
+									{{ t('optionStatus5') }}
+								</ng-container>
+							</div>
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="genre">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label8Detail') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{
+								element.genre === 'M' ? t('male') : t('female')
+							}}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="address">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label9Detail') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							{{ element.address }}
+						</td>
+					</ng-container>
+
+					<ng-container matColumnDef="action">
+						<th mat-header-cell *matHeaderCellDef>
+							{{ t('label10') }}
+						</th>
+						<td mat-cell *matCellDef="let element">
+							<button
+								type="button"
+								mat-icon-button
+								[matTooltip]="t('edit')"
+								matTooltipPosition="below"
+								(click)="editPerson(element.id)"
+								color="primary">
+								<mat-icon>edit</mat-icon>
+							</button>
+							<button
+								type="button"
+								mat-icon-button
+								[matTooltip]="t('delete')"
+								(click)="deletePerson(element.id)"
+								matTooltipPosition="below"
+								color="warn">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</td>
+					</ng-container>
+
+					<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+					<tr
+						mat-row
+						*matRowDef="let row; columns: displayedColumns"></tr>
+				</table>
+				<mat-paginator
+					[pageSizeOptions]="[5, 10, 15]"
+					showFirstLastButtons
+					aria-label="Select page of people">
+				</mat-paginator>
+			</div>
+		</mat-card-content>
+	</mat-card>
+</div>

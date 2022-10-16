@@ -139,7 +139,11 @@
 						*matRowDef="let row; columns: displayedColumns"></tr>
 				</table>
 			</div>
-			<ng-template #noData></ng-template>
+			<ng-template #noData>
+				<mat-icon class="noIcon">sentiment_very_dissatisfied</mat-icon>
+				<br />
+				<h1 class="not-found">{{ t('notFoundData') }}</h1>
+			</ng-template>
 		</mat-card-content>
 	</mat-card>
 </div>

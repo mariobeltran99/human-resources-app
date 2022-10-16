@@ -4,7 +4,9 @@
 			{{ t('titleDetails') }}
 		</mat-card-title>
 		<mat-card-content>
-			<div class="table-container" *ngIf="dataPeople.length > 0">
+			<div
+				class="table-container"
+				*ngIf="dataPeople.length > 0; else noData">
 				<table mat-table [dataSource]="dataSource">
 					<ng-container matColumnDef="dui">
 						<th mat-header-cell *matHeaderCellDef>
@@ -136,12 +138,12 @@
 						mat-row
 						*matRowDef="let row; columns: displayedColumns"></tr>
 				</table>
-				<mat-paginator
-					[pageSizeOptions]="[5, 10, 15]"
-					showFirstLastButtons
-					aria-label="Select page of people">
-				</mat-paginator>
 			</div>
+			<ng-template #noData>
+				<mat-icon class="noIcon">sentiment_very_dissatisfied</mat-icon>
+				<br />
+				<h1 class="not-found">{{ t('notFoundData') }}</h1>
+			</ng-template>
 		</mat-card-content>
 	</mat-card>
 </div>

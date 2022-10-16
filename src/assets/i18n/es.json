@@ -55,7 +55,8 @@
 		"custom-error3": "El formato debe contener @domain.tld, dirección IP o dominio",
 		"custom-error4": "Debe comenzar con 2, 6 o 7 y contener 8 dígitos",
 		"edit":"Editar",
-		"delete":"Eliminar"
+		"delete":"Eliminar",
+		"notFoundData": "Lo sentimos, por el momento no hay datos"
 	},
 	"deleteDialog": {
 		"title": "Eliminar",
@@ -63,13 +64,11 @@
 		"cancel": "Cancelar",
 		"accept": "Aceptar"
 	},
-	"paginator": {
-		"firstPageLabel": "Primera página",
-		"itemsPerPageLabel": "Elementos por página:",
-		"lastPageLabel": "Última página",
-		"nextPageLabel": "Siguiente página",
-		"previousPageLabel": "Página anterior",
-		"range": "Página {{page}} de {{amountPages}}",
-		"noRange": "Página 1 de 1"
-	}
+	"successRegister":"Persona registrada exitosamente",
+	"successUpdate":"Registro actualizado exitosamente",
+	"successDelete":"Registro eliminado exitosamente",
+	"error400":"Solicitud incorrecta: el servidor no pudo interpretar la solicitud debido a una sintaxis no válida",
+	"error403":"El cliente no tiene los permisos necesarios para ciertos contenidos",
+	"error404":"El servidor no pudo encontrar el contenido solicitado",
+	"errorServer": "Error del Servidor"
 }

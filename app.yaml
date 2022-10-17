@@ -4,17 +4,10 @@ threadsafe: yes
 
 handlers:
     - url: /
-      static_files: dist/human-resources-app/index.html
-      upload: dist/human-resources-app/index.html
+      static_files: dist/index.html
+      upload: dist/index.html
     - url: /
-      static_dir: dist/human-resources-app
+      static_dir: dist
 
 skip_files:
-    - e2e/
-    - node_modules/
-    - src/
-    - ^(.*/)?\..*$
-    - ^(.*/)?.*\.json$
-    - ^(.*/)?.*\.md$
-    - ^(.*/)?.*\.yaml$
-    - ^LICENSE
+    - (?!^dist)

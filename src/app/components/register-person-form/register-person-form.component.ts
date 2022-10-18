@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
 	AbstractControl,
 	FormControl,
@@ -8,14 +8,16 @@ import {
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
-import * as moment from 'moment';
+import { Subject, takeUntil } from 'rxjs';
 import {
 	DATA_MARITAL_STATUS,
-	MaritalStatus,
 	PersonForm,
 	SelectionMaritalStatus,
 } from 'src/app/interfaces/person-form.interface';
-import { PersonalInformation } from 'src/app/interfaces/personal-information.interface';
+import {
+	Person,
+	PersonalInformation,
+} from 'src/app/interfaces/personal-information.interface';
 import { ApiHumanResourcesService } from 'src/app/services/api-human-resources.service';
 import {
 	PATTERN_DUI,
@@ -28,9 +30,9 @@ import {
 	templateUrl: './register-person-form.component.html',
 	styleUrls: ['./register-person-form.component.scss'],
 })
-export class RegisterPersonFormComponent implements OnInit {
+export class RegisterPersonFormComponent implements OnInit, OnDestroy {
+	protected destroy$: Subject<boolean> = new Subject<boolean>();
 	personForm: FormGroup;
-	selectedStatusMarital: MaritalStatus = 'S';
 	maritalStatusData: SelectionMaritalStatus[] = DATA_MARITAL_STATUS;
 	maxDate: Date = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
 	minDate: Date = new Date(1900, 1, 1);
@@ -106,19 +108,26 @@ export class RegisterPersonFormComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.activatedRoute.params.subscribe(params => {
-			const id: number = +params['id'];
-			if (!isNaN(id)) {
-				this.editMode = true;
-				this.id = id;
-				this.loadPerson(id);
-			}
-		});
+		this.activatedRoute.params
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(params => {
+				const id: number = +params['id'];
+				if (!isNaN(id)) {
+					this.editMode = true;
+					this.id = id;
+					this.loadPerson(id);
+				}
+			});
+	}
+
+	ngOnDestroy(): void {
+		this.destroy$.next(true);
+		this.destroy$.unsubscribe();
 	}
 
 	loadPerson(id: number): void {
 		this.apiService.getPerson(id).subscribe({
-			next: response => {
+			next: (response: Person) => {
 				if (response) {
 					this.personForm.patchValue({
 						...response,
@@ -132,12 +141,18 @@ export class RegisterPersonFormComponent implements OnInit {
 
 	save(): void {
 		if (this.personForm.valid) {
+			const address = this.personForm.get('address')?.value;
+			const dui = this.personForm.get('dui')?.value;
+			const phone = this.personForm.get('phone')?.value;
+			const information: PersonalInformation = {
+				...(this.personForm.value as PersonalInformation),
+				address: address == '' ? null : address,
+				phone: +phone,
+				dui: +dui,
+			};
 			if (this.editMode) {
 				this.apiService
-					.updatePerson(
-						this.id,
-						this.personForm.value as PersonalInformation
-					)
+					.updatePerson(this.id, information)
 					.subscribe(() => {
 						this.snackBar.open(
 							this.serviceTransloco.translate<string>(
@@ -153,25 +168,20 @@ export class RegisterPersonFormComponent implements OnInit {
 						this.router.navigate(['/view-people']);
 					});
 			} else {
-				this.apiService
-					.registerPerson(
-						this.personForm.value as PersonalInformation
-					)
-					.subscribe(() => {
-						this.snackBar.open(
-							this.serviceTransloco.translate<string>(
-								'successRegister'
-							),
-							undefined,
-							{
-								verticalPosition: 'top',
-								horizontalPosition: 'center',
-								duration: 5000,
-							}
-						);
-						this.personForm.reset();
-						this.personForm.updateValueAndValidity();
-					});
+				this.apiService.registerPerson(information).subscribe(() => {
+					this.snackBar.open(
+						this.serviceTransloco.translate<string>(
+							'successRegister'
+						),
+						undefined,
+						{
+							verticalPosition: 'top',
+							horizontalPosition: 'center',
+							duration: 5000,
+						}
+					);
+					this.router.navigate(['/view-people']);
+				});
 			}
 		}
 	}

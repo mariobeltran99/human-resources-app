@@ -14,22 +14,22 @@ export class ApiHumanResourcesService {
 	constructor(private http: HttpClient) {}
 
 	getPeople(): Observable<Person[]> {
-		return this.http.get<Person[]>(`${environment.api}/people`);
+		return this.http.get<Person[]>(`${environment.api}/users`);
 	}
 
 	getPerson(id: number): Observable<Person> {
-		return this.http.get<Person>(`${environment.api}/people/${id}`);
+		return this.http.get<Person>(`${environment.api}/users/${id}`);
 	}
 
-	registerPerson(person: PersonalInformation): Observable<any> {
-		return this.http.post(`${environment.api}/people`, person);
+	registerPerson(person: PersonalInformation): Observable<Person> {
+		return this.http.post<Person>(`${environment.api}/users`, person);
 	}
 
-	updatePerson(hold: number, person: PersonalInformation): Observable<any> {
-		return this.http.put(`${environment.api}/people/${hold}`, person);
+	updatePerson(id: number, person: PersonalInformation): Observable<Person> {
+		return this.http.put<Person>(`${environment.api}/users/${id}`, person);
 	}
 
-	deletePerson(id: number): Observable<any> {
-		return this.http.get(`${environment.api}/delete/${id}`);
+	deletePerson(id: number): Observable<{}> {
+		return this.http.delete<{}>(`${environment.api}/users/${id}`);
 	}
 }

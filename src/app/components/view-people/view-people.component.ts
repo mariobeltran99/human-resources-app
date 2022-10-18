@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { TranslocoService } from '@ngneat/transloco';
+import { Subject, takeUntil } from 'rxjs';
 import { Person } from 'src/app/interfaces/personal-information.interface';
 import { ApiHumanResourcesService } from 'src/app/services/api-human-resources.service';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -13,7 +14,8 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 	templateUrl: './view-people.component.html',
 	styleUrls: ['./view-people.component.scss'],
 })
-export class ViewPeopleComponent implements OnInit {
+export class ViewPeopleComponent implements OnInit, OnDestroy {
+	protected destroy$: Subject<boolean> = new Subject<boolean>();
 	displayedColumns: string[] = [
 		'dui',
 		'name',
@@ -22,24 +24,11 @@ export class ViewPeopleComponent implements OnInit {
 		'phone',
 		'birthday',
 		'maritalStatus',
-		'genre',
+		'gender',
 		'address',
 		'action',
 	];
-	dataPeople: Person[] = [
-		{
-			id: 1,
-			dui: 841655227,
-			name: 'Mario',
-			surname: 'Beltran',
-			email: 'carl@gmail.com',
-			phone: 67465457,
-			birthday: new Date(1999, 6, 6),
-			maritalStatus: 'D',
-			gender: 'M',
-			address: 'Soya',
-		},
-	];
+	dataPeople: Person[] = [];
 	dataSource!: MatTableDataSource<Person>;
 
 	constructor(
@@ -63,29 +52,42 @@ export class ViewPeopleComponent implements OnInit {
 		});
 	}
 
-	editPerson(id: number) {
+	ngOnDestroy(): void {
+		this.destroy$.next(true);
+		this.destroy$.unsubscribe();
+	}
+
+	editPerson(id: number): void {
 		this.router.navigate(['person/edit', id]);
 	}
 
-	deletePerson(id: number) {
+	deletePerson(id: number): void {
 		const dialogRef = this.dialog.open(DeleteDialogComponent);
-		dialogRef.afterClosed().subscribe((result: boolean | undefined) => {
-			if (result) {
-				this.apiService.deletePerson(id).subscribe(() => {
-					this.dataSource.data = this.dataSource.data.filter(
-						(item: Person) => item.id !== id
+		dialogRef
+			.afterClosed()
+			.pipe(takeUntil(this.destroy$))
+			.subscribe((result: boolean | undefined) => {
+				if (result) {
+					this.apiService.deletePerson(id).subscribe(() => {
+						this.dataSource.data = this.dataSource.data.filter(
+							(item: Person) => item.id !== id
+						);
+						if (this.dataSource.data.length === 0) {
+							this.dataPeople = [];
+						}
+					});
+					this.snackBar.open(
+						this.serviceTransloco.translate<string>(
+							'successDelete'
+						),
+						undefined,
+						{
+							verticalPosition: 'top',
+							horizontalPosition: 'center',
+							duration: 5000,
+						}
 					);
-				});
-				this.snackBar.open(
-					this.serviceTransloco.translate<string>('successDelete'),
-					undefined,
-					{
-						verticalPosition: 'top',
-						horizontalPosition: 'center',
-						duration: 5000,
-					}
-				);
-			}
-		});
+				}
+			});
 	}
 }

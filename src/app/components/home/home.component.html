@@ -54,7 +54,7 @@
 		<!-- Add Content Here -->
 		<div class="container-main">
 			<mat-progress-bar
-				*ngIf="loader$ | async"
+				*ngIf="state"
 				color="primary"
 				mode="query"></mat-progress-bar>
 			<div class="container-app">

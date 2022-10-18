@@ -71,7 +71,7 @@
 								<ng-container *ngSwitchCase="'S'">
 									{{ t('optionStatus1') }}
 								</ng-container>
-								<ng-container *ngSwitchCase="'M'">
+								<ng-container *ngSwitchCase="'C'">
 									{{ t('optionStatus2') }}
 								</ng-container>
 								<ng-container *ngSwitchCase="'D'">
@@ -87,7 +87,7 @@
 						</td>
 					</ng-container>
 
-					<ng-container matColumnDef="genre">
+					<ng-container matColumnDef="gender">
 						<th mat-header-cell *matHeaderCellDef>
 							{{ t('label8Detail') }}
 						</th>
@@ -103,7 +103,9 @@
 							{{ t('label9Detail') }}
 						</th>
 						<td mat-cell *matCellDef="let element">
-							{{ element.address }}
+							{{
+								element.address === null ? '-' : element.address
+							}}
 						</td>
 					</ng-container>
 

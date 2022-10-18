@@ -31,7 +31,6 @@ export class HttpErrorInterceptor implements HttpInterceptor {
 	private errorHandler(error: HttpErrorResponse): Observable<never> {
 		let errorMessageConsole = '';
 		let errorMessageToast = '';
-		console.log(error);
 		if (error instanceof HttpErrorResponse) {
 			if (error.error instanceof ErrorEvent) {
 				errorMessageToast = error.message;

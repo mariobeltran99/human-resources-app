@@ -4,7 +4,7 @@
 
 export const environment = {
 	production: false,
-	api: 'http://3.142.77.82',
+	api: 'https://apidse-zxbetkyoia-uc.a.run.app',
 };
 
 /*

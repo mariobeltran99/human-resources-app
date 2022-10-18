@@ -3,11 +3,10 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-    - url: /assets/.*
+    - url: /assets
       secure: always
       redirect_http_response_code: 301
-      static_files: dist/assets/\1
-      upload: dist/assets/.*
+      static_dir: dist/assets
     - url: /([a-z0-9.]+(\.js|\.css|\.ico))$
       secure: always
       redirect_http_response_code: 301

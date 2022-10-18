@@ -9,7 +9,7 @@ export interface PersonalInformation {
 	phone: number;
 	birthday: Date;
 	maritalStatus: MaritalStatus;
-	genre: Genre;
+	gender: Genre;
 	address: string | null;
 }
 

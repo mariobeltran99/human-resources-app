@@ -36,7 +36,7 @@ export class ViewPeopleComponent implements OnInit {
 			phone: 67465457,
 			birthday: new Date(1999, 6, 6),
 			maritalStatus: 'D',
-			genre: 'M',
+			gender: 'M',
 			address: 'Soya',
 		},
 	];

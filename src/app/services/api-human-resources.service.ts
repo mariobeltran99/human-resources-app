@@ -18,18 +18,18 @@ export class ApiHumanResourcesService {
 	}
 
 	getPerson(id: number): Observable<Person> {
-		return this.http.get<Person>(`${environment.api}/person/${id}`);
+		return this.http.get<Person>(`${environment.api}/people/${id}`);
 	}
 
 	registerPerson(person: PersonalInformation): Observable<any> {
-		return this.http.post(`${environment.api}/person`, person);
+		return this.http.post(`${environment.api}/people`, person);
 	}
 
-	updatePerson(id: number, person: PersonalInformation): Observable<any> {
-		return this.http.put(`${environment.api}/person/${id}`, person);
+	updatePerson(hold: number, person: PersonalInformation): Observable<any> {
+		return this.http.put(`${environment.api}/people/${hold}`, person);
 	}
 
 	deletePerson(id: number): Observable<any> {
-		return this.http.delete(`${environment.api}/person/${id}`);
+		return this.http.get(`${environment.api}/delete/${id}`);
 	}
 }

@@ -94,7 +94,7 @@ export class RegisterPersonFormComponent implements OnInit {
 				nonNullable: true,
 				validators: Validators.required,
 			}),
-			genre: new FormControl('M', {
+			gender: new FormControl('M', {
 				nonNullable: true,
 				validators: Validators.required,
 			}),
@@ -111,6 +111,7 @@ export class RegisterPersonFormComponent implements OnInit {
 			if (!isNaN(id)) {
 				this.editMode = true;
 				this.id = id;
+				this.loadPerson(id);
 			}
 		});
 	}
@@ -122,6 +123,7 @@ export class RegisterPersonFormComponent implements OnInit {
 					this.personForm.patchValue({
 						...response,
 					});
+					this.personForm.get('dui')?.disable();
 				}
 			},
 			error: () => this.router.navigate(['/view-people']),

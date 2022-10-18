@@ -9,7 +9,7 @@ export interface PersonForm {
 	phone: FormControl<number | null>;
 	birthday: FormControl<Date>;
 	maritalStatus: FormControl<MaritalStatus>;
-	genre: FormControl<Genre>;
+	gender: FormControl<Genre>;
 	address: FormControl<string | null>;
 }
 
